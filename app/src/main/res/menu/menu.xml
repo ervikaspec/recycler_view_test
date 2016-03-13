@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:appcompat="http://schemas.android.com/apk/res-auto"
+    xmlns:myapp="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/menu_search"
+        android:title="@string/action_search"
+        appcompat:actionViewClass="android.support.v7.widget.SearchView"
+        appcompat:showAsAction="always" />
+
+    <item
+        android:id="@+id/langEng"
+        android:orderInCategory="100"
+        android:title="English"
+        myapp:showAsAction="never" />
+
+    <item
+        android:id="@+id/langHi"
+        android:orderInCategory="100"
+        android:title="Hindi"
+        myapp:showAsAction="never" />
+</menu>

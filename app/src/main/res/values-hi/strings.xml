@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">AgroStarTest</string>
+    <string name="mobile_no">मोबाइल मॉडल नं. </string>
+    <string name="corp">निगम नं. </string>
+    <string name="action_search">खोजें</string>
+</resources>
