@@ -7,6 +7,7 @@ package star.agro.com.agrostartest;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ import star.agro.com.agrostartest.Adapter.CatalogueAdapter;
 import star.agro.com.agrostartest.Adapter.ImageSliderAdapter;
 import star.agro.com.agrostartest.Model.Catalogue;
 
-public class MainActivity extends ActionBarActivity {
+public class SearchResultsActivity extends ActionBarActivity {
 
     ProgressDialog progressDialog;
 
@@ -41,8 +42,6 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu, menu);
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         SearchManager searchManager =
@@ -88,6 +87,18 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            generateDummyData(query);
+        }
+    }
+
+    @Override
     public void finish() {
         super.finish();
     }
@@ -102,7 +113,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         setupViews();
-        generateDummyData("");
+        onNewIntent(getIntent());
     }
 
     protected int getLayout() {
@@ -120,7 +131,7 @@ public class MainActivity extends ActionBarActivity {
         imageSlider.setAdapter(imageSliderAdapter);
 
         recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
-        GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 3);
+        GridLayoutManager manager = new GridLayoutManager(SearchResultsActivity.this, 3);
         recyclerView.setLayoutManager(manager);
         adapter = new CatalogueAdapter();
         recyclerView.setAdapter(adapter);
@@ -138,8 +149,8 @@ public class MainActivity extends ActionBarActivity {
             protected void onPreExecute() {
                 progressDialog.show();
                 data.clear();
-                mobile_model = MainActivity.this.getResources().getString(R.string.mobile_no);
-                corp = MainActivity.this.getResources().getString(R.string.corp);
+                mobile_model = SearchResultsActivity.this.getResources().getString(R.string.mobile_no);
+                corp = SearchResultsActivity.this.getResources().getString(R.string.corp);
                 super.onPreExecute();
             }
 
